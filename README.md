@@ -7,6 +7,33 @@ The Online Bookstore Management System is a Java-based backend system that allow
 Users can register and log in to the system.
 
 Roles include Customer and Admin.
+#### 2.1.1 Database Table
+__Users Table__
+
+| Column Name  | Data Type         | Constraints               |
+|--------------|-------------------|---------------------------|
+| user_id      | BIGINT            | AUTO_INCREMENT, PRIMARY KEY |
+| username     | VARCHAR(50)       | NOT NULL, UNIQUE           |
+| password     | VARCHAR(255)      | NOT NULL                   |
+| email        | VARCHAR(100)      | NOT NULL, UNIQUE           |
+| created_at   | TIMESTAMP         | DEFAULT CURRENT_TIMESTAMP  |
+| enabled      | BOOLEAN           | DEFAULT TRUE               |
+
+__Roles Table__
+
+| Column Name  | Data Type         | Constraints               |
+|--------------|-------------------|---------------------------|
+| role_id      | BIGINT            | AUTO_INCREMENT, PRIMARY KEY |
+| role_name    | VARCHAR(50)       | NOT NULL, UNIQUE           |
+
+__User Roles Table (Many-to-Many Relationship)__
+
+| Column Name   | Data Type         | Constraints                |
+|---------------|-------------------|----------------------------|
+| user_role_id  | BIGINT            | AUTO_INCREMENT, PRIMARY KEY |
+| user_id       | BIGINT            | NOT NULL, FOREIGN KEY (users.user_id) ON DELETE CASCADE |
+| role_id       | BIGINT            | NOT NULL, FOREIGN KEY (roles.role_id) ON DELETE CASCADE |
+
 
 Admins can manage books, categories, and orders.
 ### 2.2 Book Management
